@@ -32,34 +32,38 @@
 </head>
 <body>
 
+    <!-- Scary Image (Your provided image URL) -->
     <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
     
-    <!-- Use the raw GitHub URL for the audio -->
-    <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3"></audio>
+    <!-- Scary Sound (Your provided audio URL) -->
+    <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3" muted></audio>
 
     <script>
         // Function to trigger jump scare
         function triggerJumpScare() {
             var scareSound = document.getElementById("scareSound");
+            var scareImage = document.getElementById("scareImage");
 
             // Set the volume to maximum
             scareSound.volume = 1.0;
 
             // Show the scare image
-            document.getElementById("scareImage").style.display = "block";
+            scareImage.style.display = "block";
             
-            // Play the scary sound at maximum volume
+            // Unmute and play the scary sound after 5 seconds
+            scareSound.muted = false;
             scareSound.play();
             
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
-                document.getElementById("scareImage").style.display = "none";
+                scareImage.style.display = "none";
                 scareSound.pause();
                 scareSound.currentTime = 0; // Reset the sound
-            }, 3000);
+            }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        setTimeout(triggerJumpScare, 5000);
+        // Trigger jump scare after 5 seconds
+        setTimeout(triggerJumpScare, 5000);  // 5000 ms = 5 seconds
     </script>
 
 </body>
