@@ -47,17 +47,17 @@
             setTimeout(function() {
                 scareSound.muted = false; // Unmute
                 scareSound.play(); // Play the sound
-            }, 5000); // 5 seconds delay
 
-            // Show the scare image after 5 seconds
-            scareImage.style.display = "block";
+                // Show the scare image at the same time the sound plays
+                scareImage.style.display = "block";
+            }, 5000); // 5 seconds delay
 
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
                 scareImage.style.display = "none";
                 scareSound.pause();
-                scareSound.currentTime = 0; // Reset the sound to the beginning
-            }, 8000); // Show image and sound for 3 seconds
+                scareSound.currentTime = 0; // Reset sound to the beginning
+            }, 8000); // Keep image and sound for 3 seconds after unmuting
         }
 
         // Trigger jump scare after 5 seconds
