@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump Scare!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+            margin-top: 50px;
+        }
+        button {
+            padding: 20px 40px;
+            font-size: 20px;
+            cursor: pointer;
+            background-color: red;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+        button:hover {
+            background-color: darkred;
+        }
+        #scareImage {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+        }
+        audio {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Click the button if you're brave!</h1>
+    <button onclick="triggerJumpScare()">Press Me</button>
+
+    <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
+    
+    <audio id="scareSound" src="https://example.com/scary-sound.mp3"></audio>
+
+    <script>
+        function triggerJumpScare() {
+            // Show the scare image
+            document.getElementById("scareImage").style.display = "block";
+            
+            // Play the scary sound
+            document.getElementById("scareSound").play();
+            
+            // Optional: Hide the image and stop the sound after 3 seconds
+            setTimeout(function() {
+                document.getElementById("scareImage").style.display = "none";
+                document.getElementById("scareSound").pause();
+                document.getElementById("scareSound").currentTime = 0; // Reset the sound
+            }, 3000);
+        }
+    </script>
+
+</body>
+</html>
