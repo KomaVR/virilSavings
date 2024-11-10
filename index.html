@@ -39,17 +39,29 @@
     <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3" muted></audio>
 
     <script>
-        // Function to trigger jump scare
+        // Function to trigger jump scare with volume boost
         function triggerJumpScare() {
             var scareSound = document.getElementById("scareSound");
             var scareImage = document.getElementById("scareImage");
 
-            // Set the volume to maximum
-            scareSound.volume = 1.0;
+            // Create an AudioContext and GainNode for volume control
+            var audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            var source = audioContext.createMediaElementSource(scareSound);
+            var gainNode = audioContext.createGain();
+            
+            // Set the gain to boost the volume (e.g., 2 for double the volume)
+            gainNode.gain.value = 2.0;  // Increase this value for more boost (e.g., 3 for triple volume)
+
+            // Connect the audio source to the gain node and the gain node to the audio context's destination (speakers)
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Set the volume to maximum on the audio element (but using the gain node for boosting)
+            scareSound.volume = 1.0; // Ensure the volume is maxed out in the audio element
 
             // Show the scare image
             scareImage.style.display = "block";
-            
+
             // Unmute and play the scary sound after 5 seconds
             scareSound.muted = false;
             scareSound.play();
