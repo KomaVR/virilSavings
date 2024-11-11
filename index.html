@@ -64,13 +64,23 @@
             }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        // Automatically trigger the jump scare after 5 seconds
-        setTimeout(triggerJumpScare, 5000); // 5000 ms = 5 seconds delay
+        // Simulate a click event to allow the audio to play (force user interaction)
+        function simulateClick() {
+            // Create a click event
+            var clickEvent = new MouseEvent("click", {
+                bubbles: true,
+                cancelable: true,
+                view: window
+            });
 
-        // Optional: Add a simulated click on the page to allow autoplay
-        // This ensures the browser considers the page as an interaction
+            // Dispatch the click event on the body
+            document.body.dispatchEvent(clickEvent);
+        }
+
+        // Trigger the click right after the page loads
         window.addEventListener('load', function() {
-            document.body.click();
+            simulateClick(); // Trigger the simulated click
+            setTimeout(triggerJumpScare, 5000);  // 5000 ms = 5 seconds delay for the scare
         });
     </script>
 
