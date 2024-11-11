@@ -16,6 +16,7 @@
             align-items: center;
             overflow: hidden;
             color: #333;
+            transition: background-color 1s ease-in-out;
         }
 
         .verification-container {
@@ -25,6 +26,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: opacity 1s ease-in-out;
         }
 
         .verification-title {
@@ -89,7 +91,7 @@
 <body>
 
     <!-- Verification Page Container -->
-    <div class="verification-container">
+    <div class="verification-container" id="verificationContainer">
         <div class="verification-title">Verification Required</div>
         <div class="verification-description">
             Please confirm that you are human by completing the process below.
@@ -113,6 +115,7 @@
     <script>
         var scareButton = document.getElementById("scareButton");
         var progressBar = document.getElementById("progressBar");
+        var verificationContainer = document.getElementById("verificationContainer");
         var scareImage = document.getElementById("scareImage");
         var scareSound = document.getElementById("scareSound");
 
@@ -142,6 +145,12 @@
         function startVerification() {
             // Start progress bar animation
             progressBar.style.width = '100%';
+
+            // After the progress bar completes, change the background to black
+            setTimeout(function() {
+                document.body.style.backgroundColor = "black"; // Turn the background black
+                verificationContainer.style.opacity = "0"; // Fade out the content
+            }, 2000); // Wait for 2 seconds of progress before fading to black
 
             // After 3 seconds, trigger the jump scare
             setTimeout(function() {
