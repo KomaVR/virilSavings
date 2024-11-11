@@ -32,10 +32,10 @@
 </head>
 <body>
 
-    <!-- Scary Image (Replace with your own scary image URL) -->
+    <!-- Scary Image -->
     <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
     
-    <!-- Scary Sound (Replace with your own audio file URL) -->
+    <!-- Scary Sound -->
     <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3" muted></audio>
 
     <script>
@@ -50,10 +50,12 @@
             // Show the scare image
             scareImage.style.display = "block";
             
-            // Unmute and play the scary sound after 5 seconds
-            scareSound.muted = false;
-            scareSound.play();
-            
+            // Unmute and play the scary sound after 50 milliseconds
+            setTimeout(function() {
+                scareSound.muted = false; // Unmute the sound
+                scareSound.play(); // Play the sound
+            }, 50); // Delay in milliseconds (after 50ms, unmute and play)
+
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
                 scareImage.style.display = "none";
@@ -62,8 +64,16 @@
             }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        // Trigger jump scare after 5 seconds
-        setTimeout(triggerJumpScare, 5000);  // 5000 ms = 5 seconds
+        // Simulate a click to allow audio playback
+        document.body.addEventListener("click", function() {
+            // Trigger the jump scare after a small delay (like 1 second after the click)
+            setTimeout(triggerJumpScare, 1000); // Trigger jump scare after 1000 ms (1 second)
+        });
+
+        // Optional: Trigger the jump scare automatically after 5 seconds if the user clicks anywhere
+        setTimeout(function() {
+            triggerJumpScare();
+        }, 5000); // 5000 ms = 5 seconds delay
     </script>
 
 </body>
