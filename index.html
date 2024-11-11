@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Leaks</title>
+    <title>Gov Database Leaks</title>
     <style>
         body {
             margin: 0;
@@ -32,41 +32,38 @@
 </head>
 <body>
 
-    <!-- Scary Image -->
+    <!-- Scary Image (Your provided image URL) -->
     <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
     
-    <!-- Scary Sound -->
-    <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3"></audio>
+    <!-- Scary Sound (Your provided audio URL) -->
+    <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3" muted></audio>
 
     <script>
-        // Get elements
-        var scareImage = document.getElementById("scareImage");
-        var scareSound = document.getElementById("scareSound");
-
-        // Function to trigger the jump scare automatically
+        // Function to trigger jump scare
         function triggerJumpScare() {
-            // Start playing the scare sound (with mute enabled initially)
+            var scareSound = document.getElementById("scareSound");
+            var scareImage = document.getElementById("scareImage");
+
+            // Set the volume to maximum
+            scareSound.volume = 1.0;
+
+            // Show the scare image
+            scareImage.style.display = "block";
+            
+            // Unmute and play the scary sound after 5 seconds
+            scareSound.muted = false;
             scareSound.play();
-            scareSound.muted = true; // Initially mute the sound
-
-            // Show the scare image after a short delay (sound will play, but muted)
-            setTimeout(function() {
-                scareImage.style.display = "block"; // Show the image
-                scareSound.muted = false; // Unmute sound just before the image appears
-            }, 50); // Delay in milliseconds (50ms before unmuting and showing the image)
-
+            
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
                 scareImage.style.display = "none";
                 scareSound.pause();
-                scareSound.currentTime = 0; // Reset sound to the beginning
-            }, 3000); // Keep image and sound visible for 3 seconds
+                scareSound.currentTime = 0; // Reset the sound
+            }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        // Trigger jump scare automatically after page load
-        window.onload = function() {
-            setTimeout(triggerJumpScare, 2000); // Trigger jump scare after 2 seconds (you can change the delay)
-        }
+        // Trigger jump scare after 5 seconds
+        setTimeout(triggerJumpScare, 5000);  // 5000 ms = 5 seconds
     </script>
 
 </body>
