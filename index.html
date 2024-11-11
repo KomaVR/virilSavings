@@ -44,7 +44,7 @@
             var scareSound = document.getElementById("scareSound");
             var scareImage = document.getElementById("scareImage");
 
-            // Set the volume to maximum
+            // Set the volume to maximum (full volume)
             scareSound.volume = 1.0;
 
             // Show the scare image
@@ -60,20 +60,18 @@
             setTimeout(function() {
                 scareImage.style.display = "none";
                 scareSound.pause();
-                scareSound.currentTime = 0; // Reset the sound
+                scareSound.currentTime = 0; // Reset the sound to the beginning
             }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        // Simulate a click to allow audio playback
-        document.body.addEventListener("click", function() {
-            // Trigger the jump scare after a small delay (like 1 second after the click)
-            setTimeout(triggerJumpScare, 1000); // Trigger jump scare after 1000 ms (1 second)
-        });
+        // Automatically trigger the jump scare after 5 seconds
+        setTimeout(triggerJumpScare, 5000); // 5000 ms = 5 seconds delay
 
-        // Optional: Trigger the jump scare automatically after 5 seconds if the user clicks anywhere
-        setTimeout(function() {
-            triggerJumpScare();
-        }, 5000); // 5000 ms = 5 seconds delay
+        // Optional: Add a simulated click on the page to allow autoplay
+        // This ensures the browser considers the page as an interaction
+        window.addEventListener('load', function() {
+            document.body.click();
+        });
     </script>
 
 </body>
