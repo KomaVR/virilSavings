@@ -25,10 +25,6 @@
             z-index: 9999;
         }
 
-        audio {
-            display: none;
-        }
-
         button {
             font-size: 20px;
             padding: 10px 20px;
@@ -55,44 +51,45 @@
     <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3"></audio>
 
     <script>
-        // Get elements
         var scareImage = document.getElementById("scareImage");
         var scareSound = document.getElementById("scareSound");
         var triggerButton = document.getElementById("triggerButton");
 
-        // Create an AudioContext (necessary for the Web Audio API)
+        // Web Audio API context for effects
         var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        // Create a gain node for volume control
-        var gainNode = audioContext.createGain();
-        // Set an initial, reasonable gain value (don't go too high, try 1.5 or 2)
-        gainNode.gain.value = 2.0; // Set the gain to 2.0 for louder audio
+        // Create a distortion node for adding effects
+        var distortion = audioContext.createWaveShaper();
 
-        // Connect the audio element to the gain node and then to the destination (speakers)
+        // Connect the audio element to the distortion and then to the audio context destination
         var source = audioContext.createMediaElementSource(scareSound);
-        source.connect(gainNode);
-        gainNode.connect(audioContext.destination);
+        source.connect(distortion);
+        distortion.connect(audioContext.destination);
 
-        // Function to trigger the jump scare
+        // Set up a simple distortion curve for the effect (can make it more intense or subtle)
+        distortion.oversample = '4x';
+        distortion.curve = new Float32Array(44100);
+        for (var i = 0; i < distortion.curve.length; i++) {
+            distortion.curve[i] = Math.sin(i / distortion.curve.length * Math.PI);
+        }
+
+        // Trigger function to show image and play distorted sound
         function triggerJumpScare() {
-            // Show the scare image
             scareImage.style.display = "block";
 
-            // Start the audio context (required in some browsers)
+            // Start playing the audio with distortion effect
             audioContext.resume().then(function() {
-                // Play the sound with the gain applied
                 scareSound.play();
             });
 
-            // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
                 scareImage.style.display = "none";
                 scareSound.pause();
                 scareSound.currentTime = 0; // Reset sound to the beginning
-            }, 3000); // Keep image and sound visible for 3 seconds
+            }, 3000); // Image and sound visible for 3 seconds
         }
 
-        // Set up the button click event to trigger the jump scare
+        // Button event listener
         triggerButton.addEventListener("click", triggerJumpScare);
     </script>
 
