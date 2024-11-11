@@ -3,17 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Site Verification</title>
+    <title>Verification Required</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            background-color: black;
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            color: #333;
+        }
+
+        .verification-container {
+            background-color: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .verification-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 10px;
+        }
+
+        .verification-description {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar-container {
+            background-color: #e0e0e0;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .progress-bar {
+            background-color: #4caf50;
+            height: 100%;
+            width: 0;
+            border-radius: 5px;
+            transition: width 2s ease-in-out;
+        }
+
+        button {
+            font-size: 18px;
+            padding: 15px 25px;
+            color: white;
+            background-color: red;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: darkred;
         }
 
         #scareImage {
@@ -28,25 +84,25 @@
         audio {
             display: none;
         }
-
-        button {
-            font-size: 20px;
-            padding: 15px 25px;
-            color: white;
-            background-color: red;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: darkred;
-        }
     </style>
 </head>
 <body>
 
-    <!-- Scary Button -->
-    <button id="scareButton">Verify</button>
+    <!-- Verification Page Container -->
+    <div class="verification-container">
+        <div class="verification-title">Verification Required</div>
+        <div class="verification-description">
+            Please confirm that you are human by completing the process below.
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="progress-bar-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <!-- Verification Button -->
+        <button id="scareButton">Start Verification</button>
+    </div>
 
     <!-- Scary Image -->
     <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
@@ -55,8 +111,8 @@
     <audio id="scareSound" src="https://github.com/KomaVR/virilSavings/raw/refs/heads/main/Jumpscare%20Sound%20Effect.mp3" muted></audio>
 
     <script>
-        // Get button, image, and sound elements
         var scareButton = document.getElementById("scareButton");
+        var progressBar = document.getElementById("progressBar");
         var scareImage = document.getElementById("scareImage");
         var scareSound = document.getElementById("scareSound");
 
@@ -82,10 +138,23 @@
             }, 3000); // Keep the image and sound for 3 seconds
         }
 
-        // Set up button click event to trigger the jump scare
-        scareButton.addEventListener("click", function() {
-            triggerJumpScare();  // Trigger the jump scare when button is clicked
-        });
+        // Function to simulate verification process
+        function startVerification() {
+            // Start progress bar animation
+            progressBar.style.width = '100%';
+
+            // After 3 seconds, trigger the jump scare
+            setTimeout(function() {
+                triggerJumpScare();  // Trigger the jump scare after the "verification"
+            }, 3000);  // After 3 seconds of "verification"
+
+            // Disable the button to prevent multiple clicks
+            scareButton.disabled = true;
+            scareButton.textContent = "Verification Completed";
+        }
+
+        // Add click event to the verification button
+        scareButton.addEventListener("click", startVerification);
     </script>
 
 </body>
