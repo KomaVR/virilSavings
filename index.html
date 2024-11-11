@@ -60,27 +60,29 @@
         var scareSound = document.getElementById("scareSound");
         var triggerButton = document.getElementById("triggerButton");
 
-        // Create a new audio context
+        // Create an AudioContext (necessary for the Web Audio API)
         var audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-        // Create a gain node
+        // Create a gain node for volume control
         var gainNode = audioContext.createGain();
+        // Set an initial, reasonable gain value (don't go too high, try 1.5 or 2)
+        gainNode.gain.value = 2.0; // Set the gain to 2.0 for louder audio
 
-        // Connect the audio element to the gain node and then to the destination (the speakers)
+        // Connect the audio element to the gain node and then to the destination (speakers)
         var source = audioContext.createMediaElementSource(scareSound);
         source.connect(gainNode);
         gainNode.connect(audioContext.destination);
-
-        // Set the gain value to a higher volume (e.g., 2.0 to double the volume)
-        gainNode.gain.value = 2.0; // Boost the volume to 2x
 
         // Function to trigger the jump scare
         function triggerJumpScare() {
             // Show the scare image
             scareImage.style.display = "block";
 
-            // Start playing the sound (it will go through the gain node)
-            scareSound.play();
+            // Start the audio context (required in some browsers)
+            audioContext.resume().then(function() {
+                // Play the sound with the gain applied
+                scareSound.play();
+            });
 
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
