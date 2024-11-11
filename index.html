@@ -28,25 +28,9 @@
         audio {
             display: none;
         }
-
-        button {
-            font-size: 20px;
-            padding: 10px 20px;
-            color: white;
-            background-color: red;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: darkred;
-        }
     </style>
 </head>
 <body>
-
-    <!-- Jump Scare Button -->
-    <button id="triggerButton">Press Me</button>
 
     <!-- Scary Image -->
     <img id="scareImage" src="https://th.bing.com/th/id/OIP.FJ577WtxcgtL9cjtGU06mwHaLi?w=115&h=180&c=7&r=0&o=5&dpr=1.2&pid=1.7" alt="Scary Face" width="300">
@@ -58,15 +42,16 @@
         // Get elements
         var scareImage = document.getElementById("scareImage");
         var scareSound = document.getElementById("scareSound");
-        var triggerButton = document.getElementById("triggerButton");
 
-        // Function to trigger the jump scare
+        // Function to trigger the jump scare automatically
         function triggerJumpScare() {
-            // Show the scare image
-            scareImage.style.display = "block";
-
-            // Play the scare sound
+            // Start playing the scare sound (this happens first)
             scareSound.play();
+
+            // Show the scare image after a short delay (sound will play a bit before the image)
+            setTimeout(function() {
+                scareImage.style.display = "block"; // Show the image
+            }, 50); // Delay in milliseconds (50ms before showing image)
 
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
@@ -76,8 +61,10 @@
             }, 3000); // Keep image and sound visible for 3 seconds
         }
 
-        // Set up the button click event to trigger the jump scare
-        triggerButton.addEventListener("click", triggerJumpScare);
+        // Trigger jump scare automatically after page load
+        window.onload = function() {
+            setTimeout(triggerJumpScare, 2000); // Trigger jump scare after 2 seconds (you can change the delay)
+        }
     </script>
 
 </body>
