@@ -45,13 +45,15 @@
 
         // Function to trigger the jump scare automatically
         function triggerJumpScare() {
-            // Start playing the scare sound (this happens first)
+            // Start playing the scare sound (with mute enabled initially)
             scareSound.play();
+            scareSound.muted = true; // Initially mute the sound
 
-            // Show the scare image after a short delay (sound will play a bit before the image)
+            // Show the scare image after a short delay (sound will play, but muted)
             setTimeout(function() {
                 scareImage.style.display = "block"; // Show the image
-            }, 50); // Delay in milliseconds (50ms before showing image)
+                scareSound.muted = false; // Unmute sound just before the image appears
+            }, 50); // Delay in milliseconds (50ms before unmuting and showing the image)
 
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
