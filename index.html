@@ -127,13 +127,13 @@
             // First, unmute the sound
             scareSound.muted = false;
 
-            // Play the scary sound (1 second before the image)
+            // Play the scary sound (500ms before the image)
             scareSound.play();
 
-            // Show the scare image 1 second after the sound starts
+            // Show the scare image 500ms after the sound starts
             setTimeout(function() {
                 scareImage.style.display = "block";
-            }, 1000);  // 1-second delay for image
+            }, 500);  // 500ms delay for image
 
             // Hide the image and stop the sound after 3 seconds
             setTimeout(function() {
